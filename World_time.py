@@ -31,9 +31,24 @@ class Time(QMainWindow):
         self.stop.clicked.connect(self.stopping)
         self.start_stopwatch.clicked.connect(self.starting)
         self.interval.clicked.connect(self.add_interval)
+        self.stop_stopwatch.clicked.connect(self.stop_watch)
+        self.clear_list.clicked.connect(self.clear)
         self.total = 1
         self.list_times.addItem(f'Сircle            Total time             Lap time')
         self.list_times.addItem(f'--------------------------------------------------')
+
+    def stop_watch(self):
+        self.flag_two = False
+        self.start_stopwatch.setText('Proceed')
+
+    def clear(self):
+        self.list_times.clear()
+        self.list_times.addItem(f'Сircle            Total time             Lap time')
+        self.list_times.addItem(f'--------------------------------------------------')
+        self.up_time = QTime(00, 00, 00)
+        new_text = self.up_time.toString('hh:mm:ss')
+        self.stopwatch_l.setText(f'{new_text[3:5]}:{new_text[6:8]}')
+        self.start_stopwatch.setText('Start')
 
     def add_interval(self):
         now_time = int(self.stopwatch_l.text().split(":")[0]) * 100 + \
@@ -67,8 +82,12 @@ class Time(QMainWindow):
         self.progressTime.setValue(0)
 
     def stopping(self):
-        self.flag = False
-        self.start.setText('Proceed')
+        if self.seconds.value() == 0 and self.minutes.value() == 0 \
+                    and self.hours.value() == 0:
+            return False
+        if self.start.text() != 'Proceed':
+            self.flag = False
+            self.start.setText('Proceed')
 
     def countdown(self):
         self.flag = True
@@ -79,9 +98,7 @@ class Time(QMainWindow):
             self.set_hours = self.hours.value()
             self.all_time = int(self.seconds.value()) + \
                             int(self.minutes.value()) * 60 + int(self.hours.value()) * 3600
-            if self.all_time != 0:
-                self.difference = 100 // self.all_time
-            else:
+            if self.all_time == 0:
                 self.flag = False
 
     def show_time(self):
@@ -101,8 +118,7 @@ class Time(QMainWindow):
             if self.now_all_time == 0:
                 self.progressTime.setValue(100)
             else:
-                self.progressTime.setValue(self.progressTime.value() +
-                                           self.difference)
+                self.progressTime.setValue(100 - int(self.now_all_time / self.all_time * 100))
             self.seconds.setEnabled(False)
             self.minutes.setEnabled(False)
             self.hours.setEnabled(False)
@@ -133,7 +149,7 @@ def except_hook(cls, exception, traceback):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    #app.setStyleSheet(qss)
+    app.setStyleSheet(qss)
     form = Time()
     form.show()
     sys.excepthook = except_hook
