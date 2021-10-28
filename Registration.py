@@ -1,9 +1,14 @@
-import sys, csv
+import sys
 
 from PyQt5.QtWidgets import QWidget, QApplication, QLineEdit, QLabel, QPushButton
 from PyQt5.QtGui import QIntValidator, QRegExpValidator
 from PyQt5.QtCore import QRegExp
-import World_time
+import World_time, Add_user
+qss = """
+#my_timer {
+    border-image: url(sky.jpg) 0 0 0 0 stretch stretch;
+}
+"""
 
 
 class MyError(Exception):
@@ -71,19 +76,23 @@ class Registration(QWidget):
                     or self.initials["patronymic"] == '':
                 raise MyError('GG')
             self.error_label.setText('')
-            with open('file.csv', encoding="utf8") as r_file:
-                reader = csv.DictReader(r_file, delimiter=';', quotechar='"')
-                for i in reader:
-                    self.all_users.append(i)
-            with open('file.csv', 'w', newline='') as w_file:
-                writer = csv.DictWriter(
-                    w_file, fieldnames=list(self.initials.keys()), delimiter=';', quotechar='"',
-                    quoting=csv.QUOTE_NONNUMERIC)
-                writer.writeheader()
-                self.all_users.append(self.initials)
-                for i in self.all_users:
-                    writer.writerow(i)
+            print(self.initials)
+            Add_user.get_result(self.initials["Password"], self.initials["name"],
+                                self.initials["surname"], self.initials["patronymic"])
+            #with open('file.csv', encoding="utf8") as r_file:
+            #    reader = csv.DictReader(r_file, delimiter=';', quotechar='"')
+            #    for i in reader:
+            #        self.all_users.append(i)
+            #with open('file.csv', 'w', newline='') as w_file:
+            #    writer = csv.DictWriter(
+            #        w_file, fieldnames=list(self.initials.keys()), delimiter=';', quotechar='"',
+            #        quoting=csv.QUOTE_NONNUMERIC)
+            #    writer.writeheader()
+            #    self.all_users.append(self.initials)
+            #    for i in self.all_users:
+            #        writer.writerow(i)
             self.times = World_time.Time()
+            self.times.setStyleSheet(qss)
             self.times.show()
             window.hide()
             self.hide()
