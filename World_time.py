@@ -7,6 +7,9 @@ qss = """
 #my_timer {
     border-image: url(sky.jpg) 0 0 0 0 stretch stretch;
 }
+#my_time {
+    border-image: url(london-art.jpg) 0 0 0 0 stretch stretch;
+}
 """
 
 
