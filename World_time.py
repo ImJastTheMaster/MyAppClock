@@ -1,11 +1,11 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import uic
 from PyQt5.QtCore import QTime, QTimer
 qss = """
 #my_timer {
-    border-image: url(sky-sunset-night-star-atmosphere-twilight-galaxy-trees-stars-milkyway-coucherdesoleil-up-milchstrase-crpuscule.jpg) 0 0 0 0 stretch stretch;
+    border-image: url(sky.jpg) 0 0 0 0 stretch stretch;
 }
 """
 
@@ -38,10 +38,14 @@ class Time(QMainWindow):
         self.list_times.addItem(f'--------------------------------------------------')
 
     def stop_watch(self):
+        if self.flag_two is False:
+            return 0
         self.flag_two = False
         self.start_stopwatch.setText('Proceed')
 
     def clear(self):
+        self.total = 1
+        self.last = 0
         self.list_times.clear()
         self.list_times.addItem(f'Сircle            Total time             Lap time')
         self.list_times.addItem(f'--------------------------------------------------')
@@ -51,6 +55,8 @@ class Time(QMainWindow):
         self.start_stopwatch.setText('Start')
 
     def add_interval(self):
+        if self.flag_two is False:
+            return 0
         now_time = int(self.stopwatch_l.text().split(":")[0]) * 100 + \
                    int(self.stopwatch_l.text().split(":")[1])
         dif = now_time - self.last
@@ -154,4 +160,3 @@ if __name__ == '__main__':
     form.show()
     sys.excepthook = except_hook
     sys.exit(app.exec())
-
