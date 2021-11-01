@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit
 from PyQt5.QtGui import QIntValidator, QRegExpValidator
 from PyQt5.QtCore import QRegExp
 from PyQt5 import uic
+# первый фаил с которого начинается приложение
 
 
 class MyError(Exception):
@@ -29,6 +30,7 @@ class EntranceApp(QMainWindow):
         self.registration_user.clicked.connect(self.come_to_register)
 
     def come_to_register(self):
+        # перехожу в виджет регистрации
         self.reg = Registration.RegistrationUser()
         self.reg.show()
         self.reg.setFixedSize(350, 287)
@@ -36,6 +38,7 @@ class EntranceApp(QMainWindow):
         self.hide()
 
     def enable(self):
+        # делаю видимым или не видимым пароль
         if self.flag_pas:
             self.password_add.setEchoMode(QLineEdit.Password)
             self.flag_pas = False
@@ -44,10 +47,12 @@ class EntranceApp(QMainWindow):
             self.flag_pas = True
 
     def close_window(self):
+        # закрываю приложение если решил выйти
         EntranceApp().close()
         self.close()
 
     def mask_name(self):
+        # маскирую имя
         if self.flag_name:
             self.name_add.setEnabled(self.flag_name)
             self.flag_name = False
@@ -56,6 +61,7 @@ class EntranceApp(QMainWindow):
             self.flag_name = True
 
     def go_to_app(self):
+        # перехожу в приложение если данные пользователя верны
         try:
             if self.password_add.text() == '' or self.name_add.text() == '':
                 raise MyError('Not all fields are filled')
