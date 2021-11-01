@@ -30,6 +30,7 @@ class RegistrationUser(QMainWindow):
         self.back.clicked.connect(self.close_window)
 
     def close_window(self):
+        # перехожу обратно к входу
         self.entrance = Entrance.EntranceApp()
         self.entrance.setStyleSheet(constants.QSS)
         self.entrance.setFixedSize(400, 500)
@@ -38,6 +39,7 @@ class RegistrationUser(QMainWindow):
         self.hide()
 
     def save(self):
+        # сохраняю данные пользователя в базе данных
         try:
             self.initials = {"Password": self.pas.text(), "name": self.name_add.text(),
                              "surname": self.surname_add.text(), "patronymic": self.patronymic_add.text()}
@@ -60,6 +62,7 @@ class RegistrationUser(QMainWindow):
             self.error_label.setText(str(error))
 
     def enable(self):
+        # делаю видимым или не видимым пароль
         if self.flag:
             self.pas.setEchoMode(QLineEdit.Password)
             self.flag = False
