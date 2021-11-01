@@ -45,18 +45,21 @@ class Time(QMainWindow):
         con.close()
 
     def go_add_alarm(self):
+        # переходим в календарь для добавления будтльника
         self.cal = calendar.MyCalendar()
         self.cal.show()
         Time().hide()
         self.hide()
 
     def stop_watch(self):
+        # останавливаем секундомер
         if self.flag_two is False:
             return 0
         self.flag_two = False
         self.start_stopwatch.setText('Proceed')
 
     def clear(self):
+        # очищаем секундомер
         self.total = 1
         self.last = 0
         self.list_times.clear()
@@ -67,6 +70,7 @@ class Time(QMainWindow):
         self.start_stopwatch.setText('Start')
 
     def add_interval(self):
+        # добавляем интервал
         if self.flag_two is False:
             return 0
         now_time = int(self.stopwatch_l.text().split(":")[0]) * MIN_LEN + \
@@ -96,11 +100,13 @@ class Time(QMainWindow):
         self.last = now_time
 
     def starting(self):
+        # запускаем секундомер
         if self.flag_two is False:
             self.flag_two = True
             self.tick_timer()
 
     def restart(self):
+        # сброс всех значений таймера
         self.flag = False
         self.start.setText('Start')
         self.seconds.setValue(0)
@@ -112,6 +118,7 @@ class Time(QMainWindow):
         self.progressTime.setValue(0)
 
     def stopping(self):
+        # остановка таймера
         if self.seconds.value() == 0 and self.minutes.value() == 0 \
                 and self.hours.value() == 0:
             return False
@@ -120,6 +127,7 @@ class Time(QMainWindow):
             self.start.setText('Proceed')
 
     def countdown(self):
+        # продожение таймера
         self.flag = True
         if self.start.text() != 'Proceed':
             self.progressTime.setValue(0)
@@ -133,6 +141,7 @@ class Time(QMainWindow):
                 self.flag = False
 
     def tick_timer(self):
+        # высчитываем значение секундомера
         if self.flag_two:
             self.msseconds_num += 1
             self.seconds_num = (self.msseconds_num // 100) % 60
@@ -154,6 +163,7 @@ class Time(QMainWindow):
             QTimer().singleShot(10, self.tick_timer)
 
     def show_time(self):
+        # выполняем посчёты для мирового, таймера и также находим время до ближайшего будильника
         now_time = QTime.currentTime()
         text = now_time.toString('hh:mm:ss')
         self.time.setText(text)
