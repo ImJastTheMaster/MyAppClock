@@ -20,7 +20,7 @@ QSS = """
     border-image: url(kitaiskaya-stena.jpg) 0 0 0 0 stretch stretch;
 }
 #play_widget {
-    border-image: url(pole.jpg) 0 0 0 0 stretch stretch;
+    border-image: url(rabstol_net_fields_12_2560x1440.jpg) 0 0 0 0 stretch stretch;
 }
 """
 user32 = ctypes.windll.user32
