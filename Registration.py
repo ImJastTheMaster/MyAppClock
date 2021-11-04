@@ -5,7 +5,7 @@ from PyQt5.QtGui import QIntValidator, QRegExpValidator
 from PyQt5 import uic
 from PyQt5.QtCore import QRegExp
 import World_time, Add_user, Entrance
-from Project import constants
+import constants
 
 
 class MyError(Exception):
