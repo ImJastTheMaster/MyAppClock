@@ -1,5 +1,5 @@
 import sys, Check_user, World_time, Registration, function_save
-from Project import constants
+import constants
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit
 from PyQt5.QtGui import QIntValidator, QRegExpValidator, QIcon
@@ -80,6 +80,10 @@ def except_hook(cls, exception, traceback):
 
 
 if __name__ == '__main__':
+    if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
+        QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+    if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
+        QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
     app = QApplication(sys.argv)
     app.setStyleSheet(constants.QSS)
     app.setWindowIcon(QIcon('chasy.png.crdownload'))
