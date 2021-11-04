@@ -1,5 +1,5 @@
 import sys, datetime, function_save, sqlite3, World_time
-from Project import constants
+import constants
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog, QInputDialog
 from PyQt5 import uic
