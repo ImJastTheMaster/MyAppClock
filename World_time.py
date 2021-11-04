@@ -1,6 +1,6 @@
 import sys, calendar, sqlite3, function_save, datetime, Player_music
-from Project import constants
-from Project.constants import SECONDS, FULL_PROGRESS, MIN_LEN, TIME_SET, \
+import constants
+from constants import SECONDS, FULL_PROGRESS, MIN_LEN, TIME_SET, \
     MINI_LEN, LOW_STR_LEN, MAX_STR_LEN, DISTANCE_ONE, DISTANCE_TWO
 from my_PushButton import AnimationShadowEffect
 
